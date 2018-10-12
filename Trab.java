@@ -1,4 +1,9 @@
 import java.nio.file.*;
+import java.lang.StringBuffer;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
 
 public class Trab{
     public static void main(String args[]) throws Exception{
@@ -44,6 +49,50 @@ public class Trab{
                  ++pos;
              }
         }
-        
+
+
+        System.out.println("1)  Preemptivo");
+        System.out.println("2)  Não Preemptivo");
+
+        Trab trab = new Trab();
+        trab.preemptivo(quantidade, pcb, quantum);
+    }
+
+    public void preemptivo(int quantidade, ProcessControlBlock pcb[], int quantum) throws Exception{
+        int quantidadeInicial = quantidade;
+        StringBuffer buffer = new StringBuffer("");
+        while(quantidade > 0){
+            for(int i = 0 ; i < quantidade ; ++i){
+                if(pcb[i].getState().equals("Pronto")){
+                    buffer.append("Id: " + pcb[i].getId() + "          Estado: Executando\n");
+                    pcb[i].setStateExecutando();
+                    for(int j = 0 ; j < quantidadeInicial ; ++j){
+                        if(pcb[j].getState().equals("Pronto")){
+                            buffer.append("          Id: " + pcb[j].getId() + "          Estado: Pronto\n");
+                        }
+                    }
+                    pcb[i].execute(quantum);
+                    
+                    if(pcb[i].getState().equals("Encerrado")){
+                        --quantidade;
+                        buffer.append("Id: " + pcb[i].getId() + "          ENCERRADO!!!!!!!!!!\n");
+                    }
+                }
+            }
+
+            for(int i = 0 ; i < quantidadeInicial ; ++i){
+                for(int j = 0 ; j < quantidadeInicial - 1 ; ++j){
+                    if(pcb[j].getState().equals("Encerrado")){
+                        ProcessControlBlock aux = pcb[j+1];
+                        pcb[j+1] = pcb[j];
+                        pcb[j] = aux;
+                    }
+                }
+            }
+        }
+
+        Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("preemptivo.txt"), "utf-8"));
+		writer.write(buffer.toString());
+		writer.close();
     }
 }
