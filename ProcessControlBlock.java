@@ -16,9 +16,9 @@ public class ProcessControlBlock{
         this.timeStarted = System.currentTimeMillis();
     }
     public void trySleep(int quantum){
-        if (System.currentTimeMillis() >= this.timeStarted + quantum*1000) sleep();
+        if (System.currentTimeMillis() >= this.timeStarted + quantum*1000) this.sleep();
     }
-    public void sleed(){
+    public void sleep(){
         this.timeUsed += System.currentTimeMillis() - this.timeStarted;
     }
     public double getTimeStarted(){
@@ -47,6 +47,9 @@ public class ProcessControlBlock{
     }
     public void setId(int id){
         this.id = id;
+    }
+    public void setId(String id){
+        this.id = Integer.parseInt(id);
     }
     public int getId(){
         return this.id;
