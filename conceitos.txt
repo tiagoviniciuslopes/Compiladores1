@@ -1,0 +1,2 @@
+quantum = quantidade de tempo que cada processo é processado
+
