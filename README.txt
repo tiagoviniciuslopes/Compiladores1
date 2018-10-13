@@ -13,3 +13,10 @@ Informacoes do sistema:
     JRE: 1.8.0_171
     JDK: 1.8.0_171
     Pacotes utilizados: openjdk-8-jdk openjdk-8-jre
+    
+EXECUCAO DO PROGRAMA:
+	Para executar o programa e necessario passar como parametro o nome do arquivo de entrada
+	e se o algoritmo utilizado sera preemptivo ou nao, exemplos:
+		- java Trab teste.txt preemptivo
+		- java Trab teste.txt naoPreemptivo
+		
