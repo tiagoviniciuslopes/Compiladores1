@@ -10,7 +10,7 @@ public class Trab{
         String arquivo = new String(Files.readAllBytes(FileSystems.getDefault().getPath(".", args[0])));
         int length = arquivo.length();
         int quantidade = 0;
-        int quantum = 0;
+        long quantum = 0;
         int marcador = 0;
 
         for(int i = 0 ; i < length ; ++i)
@@ -28,7 +28,7 @@ public class Trab{
         for(int i = marcador + 1; i < length ; ++i)
 		{
              if(arquivo.charAt(i) == '\n'){
-                 quantum = Integer.parseInt(arquivo.substring(marcador + 1,i));
+                 quantum = Long.parseLong(arquivo.substring(marcador + 1,i));
                  marcador = i ;
                  break;
              }
@@ -49,7 +49,7 @@ public class Trab{
                  ++pos;
              }
         }
-
+        quantum = quantum * 10;
 
         System.out.println("1)  Preemptivo");
         System.out.println("2)  Não Preemptivo");
@@ -58,7 +58,7 @@ public class Trab{
         trab.preemptivo(quantidade, pcb, quantum);
     }
 
-    public void preemptivo(int quantidade, ProcessControlBlock pcb[], int quantum) throws Exception{
+    public void preemptivo(int quantidade, ProcessControlBlock pcb[], long quantum) throws Exception{
         int quantidadeInicial = quantidade;
         StringBuffer buffer = new StringBuffer("");
         while(quantidade > 0){

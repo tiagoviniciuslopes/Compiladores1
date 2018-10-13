@@ -16,26 +16,32 @@ public class ProcessControlBlock{
         this.timeStarted = 0;
         this.timeUsed = 0;
         this.counter = -1;
-        this.state = "Criado";
         this.state = "Pronto";
     }
 
     public void start(){
-        this.timeStarted = System.currentTimeMillis()/1000;
+        this.timeStarted = System.currentTimeMillis();
     }
-    public void trySleep(int quantum){
-        if (System.currentTimeMillis()/1000 >= this.timeStarted + quantum) this.sleep();
+    public boolean trySleep(long quantum){
+        /*System.out.println("System:  " + System.currentTimeMillis());
+        System.out.println("Time:    " + this.timeStarted);
+        System.out.println("Quantum: " + quantum);
+        System.out.println("T+Q    : " + (this.timeStarted + quantum));*/
+        if (System.currentTimeMillis() >= (this.timeStarted + quantum)) {
+            this.sleep();
+            return true;
+        }
+        return false;
     }
     public void sleep(){
-        long aux = System.currentTimeMillis() - this.timeStarted;
-        this.timeUsed += aux / 1000;
+        this.timeUsed += System.currentTimeMillis() - this.timeStarted;
         this.setStatePronto();
     }
     public double getTimeStarted(){
-        return this.timeStarted / 1000;
+        return this.timeStarted;
     }
     public double getTimeUsed(){
-        return this.timeUsed / 1000;
+        return this.timeUsed;
     }
     public void setStatePronto(){
         this.state = "Pronto";
@@ -67,12 +73,16 @@ public class ProcessControlBlock{
     public int getCounter(){
         return this.counter;
     }
-    public void execute(int quantum){
-        if (this.counter < 5) {
-            ++this.counter;
-            this.trySleep(quantum);
-        }else{
-            this.setStateEncerrado();
-        }
+    public void execute(long quantum){
+        this.start();
+        do{
+            if (this.counter < 10000) {
+                ++this.counter;
+            }else{
+                this.sleep();
+                this.setStateEncerrado();
+                break;
+            }
+        }while(!this.trySleep(quantum));
     }
 }
