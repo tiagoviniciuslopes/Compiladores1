@@ -1,0 +1,20 @@
+Id: 1          Estado: Executando
+          Id: 2          Estado: Pronto
+          Id: 3          Estado: Pronto
+          Id: 4          Estado: Pronto
+          Id: 5          Estado: Pronto
+Id: 1          ENCERRADO!!!!!!!!!!
+Id: 2          Estado: Executando
+          Id: 3          Estado: Pronto
+          Id: 4          Estado: Pronto
+          Id: 5          Estado: Pronto
+Id: 2          ENCERRADO!!!!!!!!!!
+Id: 3          Estado: Executando
+          Id: 4          Estado: Pronto
+          Id: 5          Estado: Pronto
+Id: 3          ENCERRADO!!!!!!!!!!
+Id: 4          Estado: Executando
+          Id: 5          Estado: Pronto
+Id: 4          ENCERRADO!!!!!!!!!!
+Id: 5          Estado: Executando
+Id: 5          ENCERRADO!!!!!!!!!!

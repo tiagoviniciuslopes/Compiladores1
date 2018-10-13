@@ -78,7 +78,7 @@ public class ProcessControlBlock{
     public void execute(long quantum){
         this.start();
         do{
-            if (this.counter < 10000) {
+            if (this.counter < 10000000) {
                 ++this.counter;
             }else{
                 this.sleep();
@@ -87,23 +87,14 @@ public class ProcessControlBlock{
             }
         }while(!this.trySleep(quantum));
     }
-    public void executeInterrupt(long quantum){
-        Random rand = new Random();
+
+    public void execute(){
         this.start();
-        do{
-            int value = rand.nextInt(5);
-            if(value != 0){
-                if (this.counter < 10000) {
-                    ++this.counter;
-                }else{
-                    this.sleep();
-                    this.setStateEncerrado();
-                    break;
-                }
-            }else{
-                this.sleep();
-                break;
-            }
-        }while(!this.trySleep(quantum));
+
+        while(this.counter < 10000000){
+            ++this.counter;
+        }
+        this.sleep();
+        this.setStateEncerrado();
     }
 }

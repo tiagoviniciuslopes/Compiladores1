@@ -56,10 +56,11 @@ public class Trab{
         if(args[1].equals("preemptivo")){
             trab.preemptivo(quantidade, pcb, quantum);
         }else{
-            trab.naoPreemptivo(quantidade, pcb, quantum);
+            trab.naoPreemptivo(quantidade, pcb);
         }
     }
 
+    //Round robin
     public void preemptivo(int quantidade, ProcessControlBlock pcb[], long quantum) throws Exception{
         int quantidadeInicial = quantidade;
         StringBuffer buffer = new StringBuffer("");
@@ -98,7 +99,8 @@ public class Trab{
 		writer.close();
     }
 
-    public void naoPreemptivo(int quantidade, ProcessControlBlock pcb[], long quantum) throws Exception{
+    //FIFO
+    public void naoPreemptivo(int quantidade, ProcessControlBlock pcb[]) throws Exception{
         int quantidadeInicial = quantidade;
         StringBuffer buffer = new StringBuffer("");
         while(quantidade > 0){
@@ -111,7 +113,7 @@ public class Trab{
                             buffer.append("          Id: " + pcb[j].getId() + "          Estado: Pronto\n");
                         }
                     }
-                    pcb[i].executeInterrupt(quantum);
+                    pcb[i].execute();
                     
                     if(pcb[i].getState().equals("Encerrado")){
                         --quantidade;
