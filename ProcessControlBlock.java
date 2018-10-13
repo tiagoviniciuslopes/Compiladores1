@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class ProcessControlBlock{
     private int id;
     private long timeStarted;
@@ -81,6 +83,25 @@ public class ProcessControlBlock{
             }else{
                 this.sleep();
                 this.setStateEncerrado();
+                break;
+            }
+        }while(!this.trySleep(quantum));
+    }
+    public void executeInterrupt(long quantum){
+        Random rand = new Random();
+        this.start();
+        do{
+            int value = rand.nextInt(5);
+            if(value != 0){
+                if (this.counter < 10000) {
+                    ++this.counter;
+                }else{
+                    this.sleep();
+                    this.setStateEncerrado();
+                    break;
+                }
+            }else{
+                this.sleep();
                 break;
             }
         }while(!this.trySleep(quantum));
